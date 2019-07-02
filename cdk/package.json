@@ -15,7 +15,9 @@
     "typescript": "^3.1.2"
   },
   "dependencies": {
-    "@aws-cdk/aws-ecr": "^0.36.0",
+    "@aws-cdk/aws-ec2": "^0.36.1",
+    "@aws-cdk/aws-ecr": "^0.36.1",
+    "@aws-cdk/aws-eks": "^0.36.1",
     "@aws-cdk/cdk": "^0.22.0"
   }
 }
