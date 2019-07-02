@@ -83,3 +83,21 @@ helm upgrade --install --values ./k8s/flux-values.yaml --namespace flux flux wea
 fluxctl identity --k8s-fwd-ns flux
 echo '  Optionally, add "export FLUX_FORWARD_NAMESPACE=flux" to the profile file.'
 echo "  Done!!!\n"
+
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: appmesh-system
+EOF
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flagger
+  namespace: appmesh-system
+data:
+  values.yaml: |
+    slack:
+      url: ${FLAGGER_SLACK_WEBHOOK_URL}
+EOF

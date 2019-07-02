@@ -1,0 +1,25 @@
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: flagger
+  namespace: appmesh-system
+  annotations:
+    flux.weave.works/automated: "false"
+spec:
+  releaseName: flagger
+  chart:
+    repository: https://flagger.app
+    name: flagger
+    version: 0.15.0
+  valuesFrom:
+  - configMapKeyRef:
+      name: flagger
+      key: values.yaml 
+      optional: false
+  values:
+    meshProvider: appmesh
+    prometheus:
+      install: true
+    slack:
+      channel: flagger
+      user: flagger

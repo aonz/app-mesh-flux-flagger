@@ -1,0 +1,15 @@
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: flagger-grafana
+  namespace: appmesh-system
+  annotations:
+    flux.weave.works/automated: "false"
+spec:
+  releaseName: flagger-grafana
+  chart:
+    repository: https://flagger.app
+    name: grafana
+    version: 1.2.0
+  values:
+    url: http://flagger-prometheus.appmesh-system:9090 
