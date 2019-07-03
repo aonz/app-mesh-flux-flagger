@@ -6,6 +6,10 @@ set -e
 export $(grep -v '^#' .env | xargs)
 export $(grep -v '^#' .env.local | xargs)
 
+sed -i '' "s/ACCOUNT_ID/${ACCOUNT_ID//\//\\/}/" ./flux/releases/app.yaml
+git commit -a -m "Set app repo."
+git push -u origin --force
+
 # CDK
 cd cdk
 npm run build

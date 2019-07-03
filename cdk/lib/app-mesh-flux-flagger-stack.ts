@@ -23,8 +23,8 @@ export class AppMeshFluxFlaggerStack extends cdk.Stack {
     });
     const autoScalingGroup = cluster.addCapacity('EksNodes', {
       vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE },
-      instanceType: new ec2.InstanceType('t3.medium'),
-      desiredCapacity: 1,
+      instanceType: new ec2.InstanceType('t3.small'),
+      desiredCapacity: 3,
     });
     autoScalingGroup.connections.allowFrom(ec2.Peer.anyIpv4(), ec2.Port.allTraffic(), 'Allow from anyone on any port');
     autoScalingGroup.role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'));
