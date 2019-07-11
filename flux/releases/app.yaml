@@ -12,7 +12,6 @@ spec:
     git: git@github.com:aonz/app-mesh-flux-flagger.git
     ref: master
     path: flux/charts/app
-  valuesFrom:
   values:
     image:
       repository: ACCOUNT_ID.dkr.ecr.ap-southeast-1.amazonaws.com/app-mesh-flux-flagger
