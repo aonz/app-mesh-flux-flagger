@@ -38,17 +38,28 @@ spec:
               containerPort: {{ .Values.containerPort }}
               protocol: TCP
           livenessProbe:
-            httpGet:
-              path: /
-              port: http
-            initialDelaySeconds: 5
+            exec:
+              command:
+              - wget
+              - --quiet
+              - --tries=1
+              - --timeout=4
+              - --spider
+              - http://localhost:{{ .Values.containerPort }}/health
             timeoutSeconds: 5
+            initialDelaySeconds: 5
+            periodSeconds: 5
           readinessProbe:
-            httpGet:
-              path: /
-              port: http
-            initialDelaySeconds: 5
+            exec:
+              command:
+              - wget
+              - --quiet
+              - --tries=1
+              - --timeout=4
+              - --spider
+              - http://localhost:{{ .Values.containerPort }}/health
             timeoutSeconds: 5
+            initialDelaySeconds: 5
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

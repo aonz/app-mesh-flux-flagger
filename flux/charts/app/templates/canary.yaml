@@ -14,7 +14,12 @@ spec:
     name: {{ include "app.fullname" . }}
   service:
     port: {{ .Values.containerPort }}
-    meshName: {{ .Values.canary.meshName }}
+    portName: {{ .Values.canary.service.portName }}
+    meshName: {{ .Values.canary.service.meshName }}
+    retries:
+      attempts: {{ .Values.canary.service.retries.attempts }}
+      perTryTimeout: {{ .Values.canary.service.retries.perTryTimeout }}
+      retryOn: {{ .Values.canary.service.retries.retryOn }}
   canaryAnalysis:
     interval: {{ .Values.canary.canaryAnalysis.interval }}
     threshold: {{ .Values.canary.canaryAnalysis.threshold }}
@@ -24,6 +29,9 @@ spec:
       - name: request-success-rate
         threshold: {{ .Values.canary.canaryAnalysis.metrics.requestSuccessRate.threshold }}
         interval: {{ .Values.canary.canaryAnalysis.metrics.requestSuccessRate.interval }}
+      - name: request-duration
+        threshold: {{ .Values.canary.canaryAnalysis.metrics.requestDuration.threshold }}
+        interval: {{ .Values.canary.canaryAnalysis.metrics.requestDuration.interval }}
     {{- if .Values.canary.loadTest.enabled }}
     webhooks:
       - name: load-test

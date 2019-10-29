@@ -13,7 +13,7 @@ git push -u origin --force
 # CDK
 cd cdk
 npm run build
-npx cdk@0.36.1 deploy --require-approval never
+npx cdk@1.15.0 deploy --require-approval never
 cd ..
 
 # Docker Image
@@ -36,27 +36,7 @@ if ! which jq > /dev/null; then
     exit 1
   fi
 fi
-aws eks --region ${REGION} update-kubeconfig --name AppMeshFluxFlagger
-INSTANCE_PROFILE_ARN=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=AppMeshFluxFlaggerStack/EksCluster/EksNodes" | jq -r '.Reservations[0].Instances[0].IamInstanceProfile.Arn')
-echo ${INSTANCE_PROFILE_ARN}
-INSTANCE_PROFILE_ARN=${INSTANCE_PROFILE_ARN/arn:aws:iam::${ACCOUNT_ID}:instance-profile\//}
-echo ${INSTANCE_PROFILE_ARN}
-ROLE_ARN=$(aws iam get-instance-profile --instance-profile-name ${INSTANCE_PROFILE_ARN} | jq -r '.InstanceProfile.Roles[0].Arn')
-echo ${ROLE_ARN}
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: aws-auth
-  namespace: kube-system
-data:
-  mapRoles: |
-    - rolearn: ${ROLE_ARN}
-      username: system:node:{{EC2PrivateDNSName}}
-      groups:
-        - system:bootstrappers
-        - system:nodes
-EOF
+aws eks --region ${REGION} update-kubeconfig --name AppMeshFluxFlagger --role-arn arn:aws:iam::${ACCOUNT_ID}:role/app-mesh-flux-flagger
 
 # Helm
 if ! which helm > /dev/null; then
@@ -82,18 +62,13 @@ if ! which fluxctl > /dev/null; then
   fi
 fi
 echo 'Installing Flux...'
-helm repo add weaveworks https://weaveworks.github.io/flux
-helm upgrade --install --values ./k8s/flux-values.yaml --namespace flux flux weaveworks/flux
+helm repo add fluxcd https://charts.fluxcd.io
+helm upgrade --install --values ./k8s/flux-values.yaml --namespace flux flux fluxcd/flux
 fluxctl identity --k8s-fwd-ns flux
 echo '  Optionally, add "export FLUX_FORWARD_NAMESPACE=flux" to the profile file.'
 echo "  Done!!!\n"
 
-cat <<EOF | kubectl apply -f -
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: appmesh-system
-EOF
+kubectl apply -f https://raw.githubusercontent.com/weaveworks/flagger/master/artifacts/flagger/crd.yaml
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: ConfigMap
@@ -105,3 +80,11 @@ data:
     slack:
       url: ${FLAGGER_SLACK_WEBHOOK_URL}
 EOF
+
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: appmesh-system
+EOF
+kubectl apply -f https://raw.githubusercontent.com/aws/eks-charts/master/stable/appmesh-controller/crds/crds.yaml

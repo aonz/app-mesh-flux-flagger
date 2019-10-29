@@ -16,10 +16,16 @@ export class AppMeshFluxFlaggerStack extends cdk.Stack {
 
     // EKS
     const vpc = new ec2.Vpc(this, 'Vpc', { cidr: '12.0.0.0/24' });
+    const mastersRole = new iam.Role(this, 'MastersRole', {
+      roleName: 'app-mesh-flux-flagger-masters-role',
+      assumedBy: new iam.AccountRootPrincipal()
+    });
     const cluster = new eks.Cluster(this, 'EksCluster', {
       clusterName: 'AppMeshFluxFlagger',
       vpc,
-      vpcSubnets: [{ subnetType: ec2.SubnetType.PUBLIC }]
+      vpcSubnets: [{ subnetType: ec2.SubnetType.PUBLIC }],
+      defaultCapacity: 0,
+      mastersRole
     });
     const autoScalingGroup = cluster.addCapacity('EksNodes', {
       vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE },

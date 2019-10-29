@@ -1,0 +1,13 @@
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: appmesh-prometheus
+  namespace: appmesh-system
+  annotations:
+    flux.weave.works/automated: "false"
+spec:
+  releaseName: appmesh-prometheus
+  chart:
+    repository: https://aws.github.io/eks-charts
+    name: appmesh-prometheus
+    version: 0.3.0

@@ -1,0 +1,13 @@
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: appmesh-jaeger
+  namespace: appmesh-system
+  annotations:
+    flux.weave.works/automated: "false"
+spec:
+  releaseName: appmesh-jaeger
+  chart:
+    repository: https://aws.github.io/eks-charts
+    name: appmesh-jaeger
+    version: 0.2.0

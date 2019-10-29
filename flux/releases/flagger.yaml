@@ -10,16 +10,17 @@ spec:
   chart:
     repository: https://flagger.app
     name: flagger
-    version: 0.15.0
+    version: 0.17.0
   valuesFrom:
   - configMapKeyRef:
       name: flagger
       key: values.yaml 
       optional: false
   values:
+    crd:
+      create: false
     meshProvider: appmesh
-    prometheus:
-      install: true
+    metricsServer: http://appmesh-prometheus:9090
     slack:
       channel: flagger
       user: flagger

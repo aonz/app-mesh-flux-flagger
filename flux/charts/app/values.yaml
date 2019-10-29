@@ -29,11 +29,14 @@ hpa:
   targetAverageUtilization: 99
 
 canary:
-  primaryHostname: app-primary.flagger
-  canaryHostname: app-canary.flagger
-  ttl: 1
   progressDeadlineSeconds: 600 # default 600s
-  meshName: flagger
+  service:
+    portName: http
+    meshName: flagger
+    retries:
+      attempts: 3
+      perTryTimeout: 1s
+      retryOn: "gateway-error,client-error,stream-error"    
   canaryAnalysis:
     interval: 10s # default 60s
     threshold: 10
@@ -43,8 +46,11 @@ canary:
       requestSuccessRate:
         threshold: 99
         interval: 1m
+      requestDuration:
+        threshold: 500
+        interval: 30s
   loadTest:
     enabled: true
     url: http://flagger-loadtester.flagger/
     timeout: 5s
-    cmd: hey -z 1m -q 100 -c 100 http://app.flagger/
+    cmd: hey -z 1m -q 10 -c 2 http://app.flagger/
