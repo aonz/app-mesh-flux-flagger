@@ -1,5 +1,6 @@
 git:
   url: git@github.com:aonz/app-mesh-flux-flagger.git
+  branch: gitops
   pollInterval: 1m
   path: flux
 registry:

@@ -7,8 +7,9 @@ export $(grep -v '^#' .env | xargs)
 export $(grep -v '^#' .env.local | xargs)
 
 sed -i '' "s/ACCOUNT_ID/${ACCOUNT_ID//\//\\/}/" ./flux/releases/app.yaml
+git checkout -b gitops
 git commit -a -m "Set app repo."
-git push -u origin --force
+git push --set-upstream origin gitops --force
 
 # CDK
 cd cdk
