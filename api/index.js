@@ -30,7 +30,7 @@ app.get('/test', async (req, res) => {
             data.versions[version]++;
         });
         for (let [key, value] of Object.entries(data.versions)) {
-            data.percentages[key] = `${(value / count) * 100}%`;
+            data.percentages[key] = `${((value / count) * 100).toFixed(2)}%`;
         };
         console.log(data);
     } catch (error) {

@@ -10,7 +10,7 @@ async function test() {
         console.log(`Time:  ${new Date().toLocaleTimeString('en-US', { hour12: false })}`);
         console.log(`Count: ${count}`);
         console.log(`Versions:`);
-        for (let [key, value] of Object.entries(versions)) {
+        for (let [key, value] of Object.entries(versions).sort((a, b) => b[0].localeCompare(a[0]))) {
             console.log(`    ${key}: ${value}, ${percentages[key]}`);
         };
     } catch (error) {
