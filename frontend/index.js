@@ -4,7 +4,7 @@ const sleep = require('sleep');
 async function test() {
     try {
         const url = process.env.COUNT ? `${process.env.URL}?count=${process.env.COUNT}` : process.env.URL;
-        const { data } = await axios.get(url);
+        const { data } = await axios.get(url, { headers: { 'Cache-Control': 'no-cache' } });
         const { count, versions, percentages } = data;
         console.clear();
         console.log(`Time:  ${new Date().toLocaleTimeString('en-US', { hour12: false })}`);

@@ -17,8 +17,9 @@ app.get('/test', async (req, res) => {
     const data = { count, versions: {}, percentages: {} };
     try {
         const promises = [];
+        const url = 'http://backend.flagger/version';
         for (i = 0; i < count; i++) {
-            promises.push(axios.get('http://backend.flagger/version'));
+            promises.push(axios.get(url, { headers: { 'Cache-Control': 'no-cache' } }));
         }
         const results = await Promise.all(promises);
         results.forEach(result => {
