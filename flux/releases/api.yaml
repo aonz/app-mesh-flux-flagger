@@ -2,17 +2,17 @@
 apiVersion: flux.weave.works/v1beta1
 kind: HelmRelease
 metadata:
-  name: app
+  name: api
   namespace: flagger
   annotations:
     flux.weave.works/automated: "true"
 spec:
-  releaseName: app
+  releaseName: api
   chart:
     git: git@github.com:aonz/app-mesh-flux-flagger.git
     ref: master
-    path: flux/charts/app
+    path: flux/charts/api
   values:
     image:
-      repository: ACCOUNT_ID.dkr.ecr.ap-southeast-1.amazonaws.com/app-mesh-flux-flagger
+      repository: ACCOUNT_ID.dkr.ecr.ap-southeast-1.amazonaws.com/app-mesh-flux-flagger-api
       tag: 1.0.0

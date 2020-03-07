@@ -53,4 +53,4 @@ canary:
     enabled: true
     url: http://flagger-loadtester.flagger/
     timeout: 5s
-    cmd: hey -z 1m -q 10 -c 2 http://app.flagger/
+    cmd: hey -z 1m -q 10 -c 2 http://backend.flagger/

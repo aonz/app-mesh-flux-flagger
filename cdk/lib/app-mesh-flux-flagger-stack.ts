@@ -9,10 +9,15 @@ export class AppMeshFluxFlaggerStack extends cdk.Stack {
     super(scope, id, props);
 
     // ECR
-    new ecr.Repository(this, 'EcrRepository', {
-      repositoryName: 'app-mesh-flux-flagger',
+    new ecr.Repository(this, 'EcrApiRepository', {
+      repositoryName: 'app-mesh-flux-flagger-api',
       removalPolicy: cdk.RemovalPolicy.DESTROY
-    })
+    });
+
+    new ecr.Repository(this, 'EcrRepository', {
+      repositoryName: 'app-mesh-flux-flagger-backend',
+      removalPolicy: cdk.RemovalPolicy.DESTROY
+    });
 
     // EKS
     const vpc = new ec2.Vpc(this, 'Vpc', { cidr: '12.0.0.0/24' });
@@ -23,7 +28,6 @@ export class AppMeshFluxFlaggerStack extends cdk.Stack {
     const cluster = new eks.Cluster(this, 'EksCluster', {
       clusterName: 'AppMeshFluxFlagger',
       vpc,
-      vpcSubnets: [{ subnetType: ec2.SubnetType.PUBLIC }],
       defaultCapacity: 0,
       mastersRole
     });

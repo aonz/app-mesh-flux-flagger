@@ -1,0 +1,6 @@
+helm:
+  versions: v3
+chartsSyncInterval: 1m
+git:
+  ssh:
+    secretName: flux-git-deploy

@@ -3,9 +3,7 @@ git:
   branch: gitops
   pollInterval: 1m
   path: flux
-registry:
-  pollInterval: 1m
-helmOperator:
-  create: true
-  createCRD: true
-  chartsSyncInterval: 1m
+sync:
+  interval: 1m
+syncGarbageCollection:
+  enabled: true

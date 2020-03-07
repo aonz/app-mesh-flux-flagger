@@ -1,0 +1,26 @@
+replicaCount: 2
+
+image:
+  tag: 1.0.0
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+containerPort: 80
+
+resources:
+  limits:
+    cpu: 128m
+    memory: 256Mi
+  requests:
+    cpu: 128m
+    memory: 256Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+servicePort: 80

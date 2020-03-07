@@ -1,0 +1,17 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: aws-alb-ingress-controller
+  namespace: tool
+  annotations:
+    flux.weave.works/automated: "false"
+spec:
+  releaseName: aws-alb-ingress-controller
+  chart:
+    repository: https://kubernetes-charts-incubator.storage.googleapis.com/
+    name: aws-alb-ingress-controller
+    version: 0.1.13
+  values:
+    clusterName: AppMeshFluxFlagger
+    autoDiscoverAwsRegion: "true"
+    autoDiscoverAwsVpcID: "true"

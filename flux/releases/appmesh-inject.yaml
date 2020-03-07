@@ -1,4 +1,4 @@
-apiVersion: flux.weave.works/v1beta1
+apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: appmesh-inject
@@ -10,15 +10,13 @@ spec:
   chart:
     repository: https://aws.github.io/eks-charts
     name: appmesh-inject
-    version: 0.3.0
+    version: 0.11.0
   values:
-    mesh: 
-      create: true
+    mesh:
       name: flagger
-      # discovery: cloudmap
+      discovery: cloudmap
     tracing:
       enabled: true
-      provider: x-ray
       # provider: jaeger
       # address: appmesh-jaeger.appmesh-system
       # port: 9411
