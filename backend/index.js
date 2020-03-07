@@ -9,7 +9,7 @@ app.get('/', (req, res) => res.json({ message: 'App Mesh x Flux x Flagger' }));
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
 app.get('/version', (req, res) => {
-    console.log({ 'X-Amzn-Trace-Id': req.headers['X-Amzn-Trace-Id'], version });
+    console.log({ 'x-amzn-trace-id': req.headers['x-amzn-trace-id'], version });
     res.json({ version });
 });
 

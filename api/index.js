@@ -10,7 +10,7 @@ app.get('/', (req, res) => res.json({ message: 'App Mesh x Flux x Flagger' }));
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
 app.get('/version', (req, res) => {
-    console.log({ 'X-Amzn-Trace-Id': req.headers['X-Amzn-Trace-Id'], version });
+    console.log({ 'x-amzn-trace-id': req.headers['x-amzn-trace-id'], version });
     res.json({ version });
 });
 
@@ -35,9 +35,9 @@ app.get('/test', async (req, res) => {
         for (let [key, value] of Object.entries(data.versions)) {
             data.percentages[key] = `${((value / count) * 100).toFixed(2)}%`;
         };
-        console.log({ 'X-Amzn-Trace-Id': req.headers['X-Amzn-Trace-Id'], data });
+        console.log({ 'x-amzn-trace-id': req.headers['x-amzn-trace-id'], data });
     } catch (error) {
-        console.log({ 'X-Amzn-Trace-Id': req.headers['X-Amzn-Trace-Id'], error: { message: error.message } });
+        console.log({ 'x-amzn-trace-id': req.headers['x-amzn-trace-id'], error: { message: error.message } });
     }
     res.json(data);
 });
