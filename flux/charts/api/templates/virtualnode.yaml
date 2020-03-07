@@ -1,0 +1,18 @@
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualNode
+metadata:
+  name: {{ include "app.fullname" . }}
+  labels:
+    app: {{ include "app.fullname" . }}
+spec:
+  meshName: {{ .Values.meshName }}
+  listeners:
+    - portMapping:
+        port: {{ .Values.containerPort }}
+        protocol: http
+  serviceDiscovery:
+    dns:
+      hostName: api.flagger
+  backends:
+    - virtualService:
+        virtualServiceName: backend.flagger

@@ -1,0 +1,23 @@
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ include "app.fullname" . }}
+  labels:
+    app: {{ include "app.fullname" . }}
+spec:
+  meshName: {{ .Values.meshName }}
+  virtualRouter:
+    name: api
+    listeners:
+      - portMapping:
+          port: {{ .Values.containerPort }}
+          protocol: http
+  routes:
+    - name: api
+      http:
+        match:
+          prefix: /
+        action:
+          weightedTargets:
+            - virtualNodeName: api
+              weight: 100

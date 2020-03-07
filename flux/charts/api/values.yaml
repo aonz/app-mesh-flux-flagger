@@ -24,3 +24,5 @@ tolerations: []
 affinity: {}
 
 servicePort: 80
+
+meshName: flagger
