@@ -21,3 +21,10 @@ spec:
           weightedTargets:
             - virtualNodeName: api
               weight: 100
+        retryPolicy:
+          httpRetryEvents:
+            - gateway-error
+            - client-error
+            - stream-error
+          maxRetries: 3
+          perRetryTimeoutMillis: 1000              
