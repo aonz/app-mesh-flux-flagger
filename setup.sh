@@ -63,7 +63,7 @@ if ! which fluxctl > /dev/null; then
     exit 1
   fi
 fi
-kubectl apply -f ./flux/resources/flux-namespace.yaml 
+kubectl apply -f ./flux/namespaces/flux-namespace.yaml 
 helm repo add fluxcd https://charts.fluxcd.io
 helm upgrade --install --values ./k8s-values/flux-values.yaml \
   --namespace flux flux fluxcd/flux
@@ -73,7 +73,7 @@ helm upgrade --install --values ./k8s-values/helm-operator-values.yaml \
 echo '  Optionally, add "export FLUX_FORWARD_NAMESPACE=flux" to the profile file.'
 echo "  Done!!!\n"
 
-kubectl apply -f ./flux/resources/appmesh-system-namespace.yaml
+kubectl apply -f ./flux/namespaces/appmesh-system-namespace.yaml
 
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
