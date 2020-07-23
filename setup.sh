@@ -15,7 +15,7 @@ git push --set-upstream origin gitops --force
 # CDK
 cd cdk
 npm run build
-npx cdk@1.54.0 bootstrap
+# npx cdk@1.54.0 bootstrap
 npx cdk@1.54.0 deploy --require-approval never
 cd ..
 
@@ -67,6 +67,7 @@ kubectl apply -f ./flux/namespaces/flux-namespace.yaml
 helm repo add fluxcd https://charts.fluxcd.io
 helm upgrade --install --values ./k8s-values/flux-values.yaml \
   --namespace flux flux fluxcd/flux
+while [[ $(kubectl -n flux get pod -l app=flux -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]]; do echo "waiting for Flux pod" && sleep 1; done  
 fluxctl identity --k8s-fwd-ns flux
 helm upgrade --install --values ./k8s-values/helm-operator-values.yaml \
   --namespace flux helm-operator fluxcd/helm-operator

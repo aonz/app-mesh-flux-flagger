@@ -6,7 +6,7 @@ export $(grep -v '^#' .env | xargs)
 export $(grep -v '^#' .env.local | xargs)
 
 # Docker Images
-$(aws ecr get-login --no-include-email --region ${REGION})
+aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com
 APP=api
 cd ${APP}
 IMAGE=app-mesh-flux-flagger-${APP}
