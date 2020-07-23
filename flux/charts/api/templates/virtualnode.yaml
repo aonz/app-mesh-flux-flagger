@@ -5,7 +5,7 @@ metadata:
   labels:
     app: {{ include "app.fullname" . }}
 spec:
-  awsName: {{ include "app.fullname" . }}
+  awsName: {{ include "app.fullname" . }}_flagger
   podSelector:
     matchLabels:
       app: {{ include "app.fullname" . }}
