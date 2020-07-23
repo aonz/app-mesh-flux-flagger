@@ -15,8 +15,8 @@ git push --set-upstream origin gitops --force
 # CDK
 cd cdk
 npm run build
-npx cdk@1.27.0 bootstrap
-npx cdk@1.27.0 deploy --require-approval never
+npx cdk@1.54.0 bootstrap
+npx cdk@1.54.0 deploy --require-approval never
 cd ..
 
 # Docker Image
