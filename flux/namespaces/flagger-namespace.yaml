@@ -3,4 +3,5 @@ kind: Namespace
 metadata:
   name: flagger
   labels:
+    name: flagger
     appmesh.k8s.aws/sidecarInjectorWebhook: enabled

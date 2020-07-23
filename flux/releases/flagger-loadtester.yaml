@@ -10,8 +10,9 @@ spec:
   chart:
     repository: https://flagger.app
     name: loadtester
-    version: 0.12.1
+    version: 0.18.0
   values:
-    meshName: flagger
-    backends:
-      - backend.flagger
+    appmesh:
+      enabled: true
+      backends:
+        - backend.flagger

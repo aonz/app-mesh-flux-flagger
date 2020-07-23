@@ -10,7 +10,7 @@ spec:
   chart:
     repository: https://kubernetes-charts-incubator.storage.googleapis.com/
     name: aws-alb-ingress-controller
-    version: 0.1.13
+    version: 1.0.2
   values:
     clusterName: AppMeshFluxFlagger
     autoDiscoverAwsRegion: "true"

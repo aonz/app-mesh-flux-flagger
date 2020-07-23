@@ -10,4 +10,10 @@ spec:
   chart:
     repository: https://aws.github.io/eks-charts
     name: appmesh-controller
-    version: 0.4.0
+    version: 1.1.0
+  values:
+    tracing:
+      enabled: true
+      provider: x-ray
+    sidecar:
+      logLevel: warning

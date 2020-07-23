@@ -10,12 +10,12 @@ spec:
   chart:
     repository: https://flagger.app
     name: flagger
-    version: 0.23.0
+    version: 1.0.1
   valuesFrom:
     - configMapKeyRef:
         name: flagger
   values:
-    meshProvider: appmesh
+    meshProvider: appmesh:v1beta2
     metricsServer: http://appmesh-prometheus:9090
     slack:
       channel: flagger

@@ -2,7 +2,7 @@ apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: metrics-server
-  namespace: appmesh-system
+  namespace: kube-system
   annotations:
     flux.weave.works/automated: "false"
 spec:
@@ -10,4 +10,4 @@ spec:
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
     name: metrics-server
-    version: 2.10.0
+    version: 2.11.1

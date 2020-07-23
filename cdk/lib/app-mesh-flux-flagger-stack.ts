@@ -20,7 +20,7 @@ export class AppMeshFluxFlaggerStack extends cdk.Stack {
     });
 
     // EKS
-    const vpc = new ec2.Vpc(this, 'Vpc', { cidr: '10.0.0.0/24', natGateways: 1 });
+    const vpc = new ec2.Vpc(this, 'Vpc', { cidr: '10.0.0.0/24', natGateways: 1, maxAzs: 2 });
     const mastersRole = new iam.Role(this, 'MastersRole', {
       roleName: 'app-mesh-flux-flagger-masters-role',
       assumedBy: new iam.AccountRootPrincipal(),

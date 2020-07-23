@@ -10,4 +10,4 @@ spec:
   chart:
     repository: https://aws.github.io/eks-charts
     name: appmesh-prometheus
-    version: 0.3.0
+    version: 1.0.0
