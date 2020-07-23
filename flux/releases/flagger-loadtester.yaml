@@ -15,5 +15,5 @@ spec:
     appmesh:
       enabled: true
       backends:
-        - backend
-        - backend-canary
+        - backend.flagger
+        - backend-canary.flagger
