@@ -1,19 +1,19 @@
-# ---
-# apiVersion: helm.fluxcd.io/v1
-# kind: HelmRelease
-# metadata:
-#   name: backend
-#   namespace: flagger
-#   annotations:
-#     flux.weave.works/automated: "true"
-# spec:
-#   releaseName: backend
-#   chart:
-#     git: git@github.com:aonz/app-mesh-flux-flagger.git
-#     ref: master
-#     path: flux/charts/backend
-#   forceUpgrade: true
-#   values:
-#     image:
-#       repository: 685329721066.dkr.ecr.ap-southeast-1.amazonaws.com/app-mesh-flux-flagger-backend
-#       tag: 1.0.0
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: backend
+  namespace: flagger
+  annotations:
+    flux.weave.works/automated: "true"
+spec:
+  releaseName: backend
+  chart:
+    git: git@github.com:aonz/app-mesh-flux-flagger.git
+    ref: master
+    path: flux/charts/backend
+  forceUpgrade: true
+  values:
+    image:
+      repository: 685329721066.dkr.ecr.ap-southeast-1.amazonaws.com/app-mesh-flux-flagger-backend
+      tag: 1.0.0
