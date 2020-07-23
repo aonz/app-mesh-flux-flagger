@@ -32,12 +32,10 @@ spec:
     stepWeight: {{ .Values.canary.analysis.stepWeight }}
     metrics:
       - name: request-success-rate
-        threshold: 
-          min: {{ .Values.canary.analysis.metrics.requestSuccessRate.thresholdRange }}
+        threshold: {{ .Values.canary.analysis.metrics.requestSuccessRate.threshold }}
         interval: {{ .Values.canary.analysis.metrics.requestSuccessRate.interval }}
       - name: request-duration
-        threshold: 
-          max: {{ .Values.canary.analysis.metrics.requestDuration.thresholdRange }}
+        threshold: {{ .Values.canary.analysis.metrics.requestDuration.threshold }}
         interval: {{ .Values.canary.analysis.metrics.requestDuration.interval }}
     {{- if .Values.canary.loadTest.enabled }}
     webhooks:

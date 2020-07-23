@@ -42,10 +42,10 @@ canary:
     stepWeight: 10
     metrics:
       requestSuccessRate:
-        thresholdRange: 99
+        threshold: 99
         interval: 1m
       requestDuration:
-        thresholdRange: 500
+        threshold: 500
         interval: 30s
   loadTest:
     enabled: true
