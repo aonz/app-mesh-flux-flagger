@@ -1,49 +1,49 @@
-apiVersion: flagger.app/v1beta1
-kind: Canary
-metadata:
-  name: {{ include "app.fullname" . }}
-spec:
-  provider: appmesh:v1beta2
-  targetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: {{ include "app.fullname" . }}
-  progressDeadlineSeconds: {{ .Values.canary.progressDeadlineSeconds }}
-  autoscalerRef:
-    apiVersion: autoscaling/v2beta1
-    kind: HorizontalPodAutoscaler
-    name: {{ include "app.fullname" . }}
-  service:
-    port: {{ .Values.containerPort }}
-    timeout: 15s
-    retries:
-      attempts: {{ .Values.canary.service.retries.attempts }}
-      perTryTimeout: {{ .Values.canary.service.retries.perTryTimeout }}
-      retryOn: {{ .Values.canary.service.retries.retryOn }}
-    match:
-      - uri:
-          prefix: /
-    rewrite:
-      uri: /
-  analysis:
-    interval: {{ .Values.canary.analysis.interval }}
-    threshold: {{ .Values.canary.analysis.threshold }}
-    maxWeight: {{ .Values.canary.analysis.maxWeight }}
-    stepWeight: {{ .Values.canary.analysis.stepWeight }}
-    metrics:
-      - name: request-success-rate
-        threshold: 
-          min: {{ .Values.canary.analysis.metrics.requestSuccessRate.threshold }}
-        interval: {{ .Values.canary.analysis.metrics.requestSuccessRate.interval }}
-      - name: request-duration
-        threshold: 
-          max: {{ .Values.canary.analysis.metrics.requestDuration.thresholdRange }}
-        interval: {{ .Values.canary.analysis.metrics.requestDuration.interval }}
-    {{- if .Values.canary.loadTest.enabled }}
-    webhooks:
-      - name: load-test
-        url: {{ .Values.canary.loadTest.url }}
-        timeout: {{ .Values.canary.loadTest.timeout }}
-        metadata:
-          cmd: {{ .Values.canary.loadTest.cmd }}
-    {{- end }}
+# apiVersion: flagger.app/v1beta1
+# kind: Canary
+# metadata:
+#   name: {{ include "app.fullname" . }}
+# spec:
+#   provider: appmesh:v1beta2
+#   targetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: {{ include "app.fullname" . }}
+#   progressDeadlineSeconds: {{ .Values.canary.progressDeadlineSeconds }}
+#   autoscalerRef:
+#     apiVersion: autoscaling/v2beta1
+#     kind: HorizontalPodAutoscaler
+#     name: {{ include "app.fullname" . }}
+#   service:
+#     port: {{ .Values.containerPort }}
+#     timeout: 15s
+#     retries:
+#       attempts: {{ .Values.canary.service.retries.attempts }}
+#       perTryTimeout: {{ .Values.canary.service.retries.perTryTimeout }}
+#       retryOn: {{ .Values.canary.service.retries.retryOn }}
+#     match:
+#       - uri:
+#           prefix: /
+#     rewrite:
+#       uri: /
+#   analysis:
+#     interval: {{ .Values.canary.analysis.interval }}
+#     threshold: {{ .Values.canary.analysis.threshold }}
+#     maxWeight: {{ .Values.canary.analysis.maxWeight }}
+#     stepWeight: {{ .Values.canary.analysis.stepWeight }}
+#     metrics:
+#       - name: request-success-rate
+#         threshold: 
+#           min: {{ .Values.canary.analysis.metrics.requestSuccessRate.threshold }}
+#         interval: {{ .Values.canary.analysis.metrics.requestSuccessRate.interval }}
+#       - name: request-duration
+#         threshold: 
+#           max: {{ .Values.canary.analysis.metrics.requestDuration.thresholdRange }}
+#         interval: {{ .Values.canary.analysis.metrics.requestDuration.interval }}
+#     {{- if .Values.canary.loadTest.enabled }}
+#     webhooks:
+#       - name: load-test
+#         url: {{ .Values.canary.loadTest.url }}
+#         timeout: {{ .Values.canary.loadTest.timeout }}
+#         metadata:
+#           cmd: {{ .Values.canary.loadTest.cmd }}
+#     {{- end }}
