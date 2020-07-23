@@ -31,23 +31,21 @@ hpa:
 canary:
   progressDeadlineSeconds: 600 # default 600s
   service:
-    portName: http
-    meshName: flagger
     retries:
       attempts: 3
       perTryTimeout: 1s
       retryOn: "gateway-error,client-error,stream-error"    
-  canaryAnalysis:
+  analysis:
     interval: 10s # default 60s
     threshold: 10
     maxWeight: 50
     stepWeight: 10
     metrics:
       requestSuccessRate:
-        threshold: 99
+        thresholdRange: 99
         interval: 1m
       requestDuration:
-        threshold: 500
+        thresholdRange: 500
         interval: 30s
   loadTest:
     enabled: true

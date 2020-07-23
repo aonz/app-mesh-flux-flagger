@@ -1,8 +1,9 @@
-apiVersion: flagger.app/v1alpha3
+apiVersion: flagger.app/v1beta1
 kind: Canary
 metadata:
   name: {{ include "app.fullname" . }}
 spec:
+  provider: appmesh:v1beta2
   targetRef:
     apiVersion: apps/v1
     kind: Deployment
@@ -14,24 +15,30 @@ spec:
     name: {{ include "app.fullname" . }}
   service:
     port: {{ .Values.containerPort }}
-    portName: {{ .Values.canary.service.portName }}
-    meshName: {{ .Values.canary.service.meshName }}
+    timeout: 15s
     retries:
       attempts: {{ .Values.canary.service.retries.attempts }}
       perTryTimeout: {{ .Values.canary.service.retries.perTryTimeout }}
       retryOn: {{ .Values.canary.service.retries.retryOn }}
-  canaryAnalysis:
-    interval: {{ .Values.canary.canaryAnalysis.interval }}
-    threshold: {{ .Values.canary.canaryAnalysis.threshold }}
-    maxWeight: {{ .Values.canary.canaryAnalysis.maxWeight }}
-    stepWeight: {{ .Values.canary.canaryAnalysis.stepWeight }}
+    match:
+      - uri:
+          prefix: /
+    rewrite:
+      uri: /
+  analysis:
+    interval: {{ .Values.canary.analysis.interval }}
+    threshold: {{ .Values.canary.analysis.threshold }}
+    maxWeight: {{ .Values.canary.analysis.maxWeight }}
+    stepWeight: {{ .Values.canary.analysis.stepWeight }}
     metrics:
       - name: request-success-rate
-        threshold: {{ .Values.canary.canaryAnalysis.metrics.requestSuccessRate.threshold }}
-        interval: {{ .Values.canary.canaryAnalysis.metrics.requestSuccessRate.interval }}
+        threshold: 
+          min: {{ .Values.canary.analysis.metrics.requestSuccessRate.threshold }}
+        interval: {{ .Values.canary.analysis.metrics.requestSuccessRate.interval }}
       - name: request-duration
-        threshold: {{ .Values.canary.canaryAnalysis.metrics.requestDuration.threshold }}
-        interval: {{ .Values.canary.canaryAnalysis.metrics.requestDuration.interval }}
+        threshold: 
+          max: {{ .Values.canary.analysis.metrics.requestDuration.thresholdRange }}
+        interval: {{ .Values.canary.analysis.metrics.requestDuration.interval }}
     {{- if .Values.canary.loadTest.enabled }}
     webhooks:
       - name: load-test
