@@ -1,23 +1,23 @@
-# apiVersion: appmesh.k8s.aws/v1beta2
-# kind: VirtualNode
-# metadata:
-#   name: {{ include "app.fullname" . }}
-#   labels:
-#     app: {{ include "app.fullname" . }}
-# spec:
-#   awsName: {{ include "app.fullname" . }}
-#   podSelector:
-#     matchLabels:
-#       app: {{ include "app.fullname" . }}
-#   listeners:
-#     - portMapping:
-#         port: {{ .Values.containerPort }}
-#         protocol: http
-#   serviceDiscovery:
-#     awsCloudMap:
-#       namespaceName: flagger
-#       serviceName: {{ include "app.fullname" . }}  
-#   backends:
-#     - virtualService:
-#         virtualServiceRef:
-#           name: backend
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: VirtualNode
+metadata:
+  name: {{ include "app.fullname" . }}
+  labels:
+    app: {{ include "app.fullname" . }}
+spec:
+  awsName: {{ include "app.fullname" . }}
+  podSelector:
+    matchLabels:
+      app: {{ include "app.fullname" . }}
+  listeners:
+    - portMapping:
+        port: {{ .Values.containerPort }}
+        protocol: http
+  serviceDiscovery:
+    awsCloudMap:
+      namespaceName: flagger
+      serviceName: {{ include "app.fullname" . }}  
+  backends:
+    - virtualService:
+        virtualServiceRef:
+          name: backend
