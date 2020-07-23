@@ -33,7 +33,7 @@ spec:
     metrics:
       - name: request-success-rate
         threshold: 
-          min: {{ .Values.canary.analysis.metrics.requestSuccessRate.threshold }}
+          min: {{ .Values.canary.analysis.metrics.requestSuccessRate.thresholdRange }}
         interval: {{ .Values.canary.analysis.metrics.requestSuccessRate.interval }}
       - name: request-duration
         threshold: 

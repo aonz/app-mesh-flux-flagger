@@ -1,19 +1,19 @@
-# ---
-# apiVersion: helm.fluxcd.io/v1
-# kind: HelmRelease
-# metadata:
-#   name: api
-#   namespace: flagger
-#   annotations:
-#     flux.weave.works/automated: "true"
-# spec:
-#   releaseName: api
-#   chart:
-#     git: git@github.com:aonz/app-mesh-flux-flagger.git
-#     ref: gitops
-#     path: flux/charts/api
-#   forceUpgrade: true
-#   values:
-#     image:
-#       repository: 685329721066.dkr.ecr.ap-southeast-1.amazonaws.com/app-mesh-flux-flagger-api
-#       tag: 1.0.0
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: api
+  namespace: flagger
+  annotations:
+    flux.weave.works/automated: "true"
+spec:
+  releaseName: api
+  chart:
+    git: git@github.com:aonz/app-mesh-flux-flagger.git
+    ref: gitops
+    path: flux/charts/api
+  forceUpgrade: true
+  values:
+    image:
+      repository: 685329721066.dkr.ecr.ap-southeast-1.amazonaws.com/app-mesh-flux-flagger-api
+      tag: 1.0.0
