@@ -10,7 +10,7 @@ spec:
   releaseName: backend
   chart:
     git: git@github.com:aonz/app-mesh-flux-flagger.git
-    ref: master
+    ref: gitops
     path: flux/charts/backend
   forceUpgrade: true
   values:
