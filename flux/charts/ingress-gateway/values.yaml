@@ -1,0 +1,3 @@
+service: ingress-gateway
+version: 1.0.0
+

@@ -10,9 +10,10 @@ spec:
   releaseName: api
   chart:
     git: git@github.com:aonz/app-mesh-flux-flagger.git
-    ref: master
+    ref: gitops
     path: flux/charts/api
+  forceUpgrade: true
   values:
     image:
-      repository: ACCOUNT_ID.dkr.ecr.ap-southeast-1.amazonaws.com/app-mesh-flux-flagger-api
+      repository: ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/app-mesh-flux-flagger-api
       tag: 1.0.0

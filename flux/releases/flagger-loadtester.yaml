@@ -16,3 +16,4 @@ spec:
       enabled: true
       backends:
         - backend.flagger
+        - backend-canary.flagger

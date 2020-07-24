@@ -2,10 +2,10 @@ apiVersion: appmesh.k8s.aws/v1beta2
 kind: Mesh
 metadata:
   name: flagger
-  namespace: app-mesh-demo
+  namespace: flagger
 spec:
   namespaceSelector:
     matchLabels:
-      name: app-mesh-demo
+      name: flagger
   egressFilter:
     type: ALLOW_ALL
