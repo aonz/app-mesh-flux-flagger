@@ -16,4 +16,4 @@ spec:
   values:
     image:
       repository: 685329721066.dkr.ecr.ap-southeast-1.amazonaws.com/app-mesh-flux-flagger-backend
-      tag: 4.0.0
+      tag: 5.0.0
