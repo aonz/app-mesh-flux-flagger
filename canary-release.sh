@@ -7,7 +7,7 @@ export $(grep -v '^#' .env.local | xargs)
 
 git checkout gitops
 git pull
-cd app
+cd backend
 npm version major
 VERSION=$(node -p -e "require('./package.json').version")
 cd ..
