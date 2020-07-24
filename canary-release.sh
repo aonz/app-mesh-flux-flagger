@@ -13,5 +13,5 @@ VERSION=$(node -p -e "require('./package.json').version")
 cd ..
 git commit -a -m "Release version: ${VERSION}"
 git push -u origin --force
-sh ./build_and_push_docker_image.sh
+sh ./build_and_push_docker_images.sh
 
