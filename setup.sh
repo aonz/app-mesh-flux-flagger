@@ -7,7 +7,9 @@ export $(grep -v '^#' .env | xargs)
 export $(grep -v '^#' .env.local | xargs)
 
 sed -i '' "s/ACCOUNT_ID/${ACCOUNT_ID//\//\\/}/" ./flux/releases/api.yaml
+sed -i '' "s/REGION/${REGION//\//\\/}/" ./flux/releases/api.yaml
 sed -i '' "s/ACCOUNT_ID/${ACCOUNT_ID//\//\\/}/" ./flux/releases/backend.yaml
+sed -i '' "s/REGION/${REGION//\//\\/}/" ./flux/releases/backend.yaml
 sed -i '' "s/REGION/${REGION//\//\\/}/" ./flux/releases/ingress-gateway.yaml
 git checkout -b gitops
 git commit -a -m "Set app repo."
