@@ -1,17 +1,17 @@
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: {{ include "app.fullname" . }}
-  labels:
-    app: {{ include "app.fullname" . }}
-  annotations:
-    kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/scheme: internet-facing
-spec:
-  rules:
-    - http:
-        paths:
-          - path: /*
-            backend:
-              serviceName: {{ include "app.fullname" . }}
-              servicePort: {{ .Values.servicePort }}
+# apiVersion: networking.k8s.io/v1beta1
+# kind: Ingress
+# metadata:
+#   name: {{ include "app.fullname" . }}
+#   labels:
+#     app: {{ include "app.fullname" . }}
+#   annotations:
+#     kubernetes.io/ingress.class: alb
+#     alb.ingress.kubernetes.io/scheme: internet-facing
+# spec:
+#   rules:
+#     - http:
+#         paths:
+#           - path: /*
+#             backend:
+#               serviceName: {{ include "app.fullname" . }}
+#               servicePort: {{ .Values.servicePort }}

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "app.fullname" . }}
+  labels:
+    app: {{ include "app.fullname" . }}
+    service: {{ .Values.service }}
+    version: {{ .Values.version }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "app.fullname" . }}
+      service: {{ .Values.service }}
+      version: {{ .Values.version }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "app.fullname" . }}
+        service: {{ .Values.service }}
+        version: {{ .Values.version }}
+    spec:
+      containers:
+        - name: envoy
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8088
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 128m
+              memory: 256Mi
+            requests:
+              cpu: 128m
+              memory: 256Mi

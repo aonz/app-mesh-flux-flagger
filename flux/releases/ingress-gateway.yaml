@@ -1,0 +1,19 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: ingress-gateway
+  namespace: flagger
+  annotations:
+    flux.weave.works/automated: "true"
+spec:
+  releaseName: ingress-gateway
+  chart:
+    git: git@github.com:aonz/app-mesh-flux-flagger.git
+    ref: gitops
+    path: flux/charts/ingress-gateway
+  forceUpgrade: true
+  values:
+    image:
+      repository: 840364872350.dkr.ecr.ap-southeast-1.amazonaws.com/aws-appmesh-envoy
+      tag: v1.12.5.0-prod

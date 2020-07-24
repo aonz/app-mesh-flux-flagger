@@ -1,0 +1,17 @@
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: VirtualGateway
+metadata:
+  name: flagger
+  namespace: flagger
+spec:
+  awsName: ingress-gateway
+  namespaceSelector:
+    matchLabels:
+      name: flagger
+  podSelector:
+    matchLabels:
+      service: ingress-gateway
+  listeners:
+    - portMapping:
+        port: 8088
+        protocol: http
