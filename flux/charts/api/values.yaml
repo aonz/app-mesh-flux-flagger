@@ -23,6 +23,32 @@ tolerations: []
 
 affinity: {}
 
-servicePort: 80
+hpa:
+  minReplicas: 2
+  maxReplicas: 4
+  targetAverageUtilization: 99
 
-meshName: flagger
+canary:
+  progressDeadlineSeconds: 600 # default 600s
+  service:
+    retries:
+      attempts: 3
+      perTryTimeout: 1s
+      retryOn: "gateway-error,client-error,stream-error"    
+  analysis:
+    interval: 10s # default 60s
+    threshold: 10
+    maxWeight: 50
+    stepWeight: 10
+    metrics:
+      requestSuccessRate:
+        threshold: 99
+        interval: 1m
+      requestDuration:
+        threshold: 500
+        interval: 30s
+  loadTest:
+    enabled: true
+    url: http://flagger-loadtester.flagger/
+    timeout: 5s
+    cmd: hey -z 1m -q 10 -c 2 http://backend.flagger/
